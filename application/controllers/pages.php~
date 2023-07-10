@@ -1,0 +1,54 @@
+<?php
+define ('MODULE_NO', 4);
+define ('TITLE', 'WorkBench');
+
+class Pages extends CI_Controller {
+
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->helper('url');
+		$this->load->library('session');
+		$this->load->model('module_map_model');
+		$this->load->model('role_model');
+	}
+public function test()
+{
+	echo "hello world";
+
+	print_r($_POST);
+}
+
+
+	public function index()
+	{
+	  redirect('/frontdesk');
+	  
+	    $data['title'] = "Medstation | Home";
+	    $data['content-description'] = "Start Page";
+	    
+	    if($this->session->userdata('logged_in'))
+	    {
+		//get all user module mappings by role
+		$data['usermodules'] = $this->module_map_model->getrolemodules($this->session->userdata('role'));
+		$data['currentmodule']['number'] = MODULE_NO;
+		$data['currentmodule']['title'] = TITLE;
+		//get the role title
+		$data['user_role'] = $this->role_model->getrole($this->session->userdata('role'));
+		
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/mainheader', $data);
+                $this->load->view('pages/home');
+		$this->load->view('templates/footer');
+	    }
+	    else
+	    {
+		redirect('/login');
+	    }
+
+		 
+	}
+
+	
+  
+}

@@ -1,0 +1,1 @@
+[18-Nov-2017 11:50:24 Africa/Lagos] PHP Fatal error:  Allowed memory size of 268435456 bytes exhausted (tried to allocate 32 bytes) in /home/mediphix/public_html/anchormed/application/third_party/PHPExcel/Cell.php on line 550
